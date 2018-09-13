@@ -1,14 +1,17 @@
 import React, { Component} from 'react'
 import { View, Text, StyleSheet , Image, TouchableOpacity} from 'react-native'
 import GridView from 'react-native-super-grid';
-
+import style from './Styles/Style'
 export default class Horoscopelist extends React.Component {
 
 
     static navigationOptions = ({navigation}) => {
         
         return {
-            title: `Choisissez votre Signe / ${navigation.state.params.type}` 
+            title: `Choisissez votre Signe / ${navigation.state.params.type}`,
+            headerStyle: style.header,
+            headerTitleStyle: style.headerTitle,
+            headerTintColor: '#fff'
 
         }
     }

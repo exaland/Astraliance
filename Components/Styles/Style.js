@@ -1,6 +1,13 @@
+
 export default {
     container: {
         margin: 20
+    },
+    header: {
+        backgroundColor: '#160a38'
+    },
+    headerTitle: {
+        color: '#FFFFFF'
     },
     title: {
         fontSize: 22,
@@ -17,5 +24,47 @@ export default {
         fontSize: 22,
         fontWeight: 'bold'
         
+    },
+    viewHoroscope: {
+        alignItems:'center'
+    },
+    scrollViewHoroscope: {
+        paddingVertical: 20
+    },
+    signeAmour: {
+      fontSize: 25,
+      fontWeight: 'bold',
+      backgroundColor: '#FE2E2E',
+      color: '#FFFFFF'
+     
+    },
+    signeSocial: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        backgroundColor: '#FA5858',
+        color: '#FFFFFF'
+    
+    },
+    signeLoisir: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    backgroundColor: '#F5A9A9',
+    color: '#FFFFFF'
+    
+    },
+    textHoroscope: {
+        fontSize: 10
+    },
+    textHoroscopeResume: {
+        fontSize: 10,
+        fontStyle: 'italic'
+    },
+    textDate: {
+        fontWeight: 'bold'
+    },
+    lineStyle: {
+        borderWidth: 0.5,
+        borderColor: 'black',
+        margin: 10
     }
 }

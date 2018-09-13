@@ -10,6 +10,9 @@ class Horoscopetype extends React.Component {
     
     static navigationOptions = {
         title: 'Choisissez votre Horoscope',
+        headerStyle: style.header,
+        headerTitleStyle: style.headerTitle,
+        headerTintColor: '#fff',
         tabBarIcon: () => {
            return <Image source={require ('./Icons/home.png')} />
         }
