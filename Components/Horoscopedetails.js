@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import { View, Text, ScrollView, Image, Alert } from 'react-native'
-import { Rating } from 'react-native-elements'
+import { Rating , Divider} from 'react-native-elements'
 import axios from 'axios'
 import style from './Styles/Style'
 import moment from 'moment'
@@ -21,23 +21,32 @@ export default class Horoscopedetails extends React.Component {
         super(props)
         this.state = {
             horos: [],
+            horosNew: [],
             horoscope: this.props.navigation.state.params.type,
             codeHoroscope: this.props.navigation.state.params.code
         }
        
         console.log('HOROSCOPE', this.props.navigation.state.params.type)
-        console.log('CODE HOROSCOPE', this.props.navigation.state.params.code)
-        this.fetchHoroscope(this.props.navigation.state.params.code);
+        console.log('CODE HOROSCOPE', this.props.navigation.state.params.signe)
+        this.fetchHoroscope(this.props.navigation.state.params.signe);
         this.date();
       }
+
+
 
     fetchHoroscope(codes) {
         axios.get(BASE_URL)
         .then((response) => {
-            this.setState({horos: response.data[codes]})
+          
+            var val = "cancer"
+            var index = response.data.findIndex(function(item,i) {
+                return item.sign === codes
+            })
+            console.log(index)
+            this.setState({horos: response.data[index]})
             days = this.state.horos['date'];
-            rating = parseInt(this.state.horos['hw_note-social'],10);
-
+            rating = parseInt(this.state.horos['hw_note-amour-celibataire'],10);
+        
 
         }).catch((error) => {
             return Alert.alert ('Problème Horoscope', 'Il y a un problème avec le Serveur',
@@ -80,7 +89,7 @@ export default class Horoscopedetails extends React.Component {
                 fractions={1}
                 startingValue={rating}
                 readonly
-                imageSize={40}
+                imageSize={30}
                 onFinishRating={this.ratingCompleted}
                 style={{ paddingVertical: 10, alignItems: 'center'}}
                 />
