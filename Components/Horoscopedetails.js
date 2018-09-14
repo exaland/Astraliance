@@ -1,10 +1,12 @@
 import React, { Component} from 'react'
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, Alert } from 'react-native'
+import { Rating } from 'react-native-elements'
 import axios from 'axios'
 import style from './Styles/Style'
 import moment from 'moment'
 const BASE_URL = 'http://www.astraliance.fr/wp-json/horoscope/v1/fr/week-end'
 let days = '';
+const { rating } =''
 export default class Horoscopedetails extends React.Component {
 
 
@@ -34,7 +36,18 @@ export default class Horoscopedetails extends React.Component {
         .then((response) => {
             this.setState({horos: response.data[codes]})
             days = this.state.horos['date'];
+            rating = parseInt(this.state.horos['hw_note-social'],10);
 
+
+        }).catch((error) => {
+            return Alert.alert ('Problème Horoscope', 'Il y a un problème avec le Serveur',
+            
+            [
+                {text: 'Annuler', onPress: () => this.props.navigation.navigate('Type'), style: 'cancel'},
+                {text: 'OK', onPress: () => this.props.navigation.navigate('Type')},
+            ],
+            { cancelable: false}
+            )
         })
     }  
 
@@ -46,6 +59,7 @@ export default class Horoscopedetails extends React.Component {
     }
 
     render() {
+
         const signeImage = [
             { name: 'belier', code: '0', imgurl: require('./Images/signe_belier.png') }, { name: 'balance', code: '1', imgurl: require('./Images/signe_balance.png') },
             { name: 'vierge', code: '2',  imgurl: require('./Images/signe_vierge.png') }, { name: 'verseau', code: '3',  imgurl: require('./Images/signe_verseau.png')  },
@@ -61,6 +75,15 @@ export default class Horoscopedetails extends React.Component {
             <Image source={signeImage[this.props.navigation.state.params.code].imgurl } />
             <Text style={style.textDate}>DATE : {this.date()}</Text>
             </View>
+            <Rating
+                type="heart"
+                fractions={1}
+                startingValue={rating}
+                readonly
+                imageSize={40}
+                onFinishRating={this.ratingCompleted}
+                style={{ paddingVertical: 10, alignItems: 'center'}}
+                />
             <Text style={style.signeAmour}>AMOUR (Celibataire) Résumé</Text>
             <Text style={style.textHoroscopeResume}>{this.state.horos['hw_resume-amour-celibataire']}</Text>
             <Text style={style.signeAmour}>AMOUR (Celibataire)</Text>
