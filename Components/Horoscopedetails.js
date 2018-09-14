@@ -6,7 +6,7 @@ import style from './Styles/Style'
 import moment from 'moment'
 const BASE_URL = 'http://www.astraliance.fr/wp-json/horoscope/v1/fr/week-end'
 let days = '';
-const { rating } =''
+const { ratingAmourC, ratingAmourCouple, ratingSocial, ratingLoisir } =''
 export default class Horoscopedetails extends React.Component {
 
 
@@ -45,8 +45,11 @@ export default class Horoscopedetails extends React.Component {
             console.log(index)
             this.setState({horos: response.data[index]})
             days = this.state.horos['date'];
-            rating = parseInt(this.state.horos['hw_note-amour-celibataire'],10);
-        
+            ratingAmourC = parseInt(this.state.horos['hw_note-amour-celibataire'],10);
+            ratingAmourCouple = parseInt(this.state.horos['hw_note-amour-couple'],10);
+            ratingSocial = parseInt(this.state.horos['hw_note-social'],10);
+            ratingLoisir = parseInt(this.state.horos['hw_note-loisir'],10);
+
 
         }).catch((error) => {
             return Alert.alert ('Problème Horoscope', 'Il y a un problème avec le Serveur',
@@ -84,29 +87,68 @@ export default class Horoscopedetails extends React.Component {
             <Image source={signeImage[this.props.navigation.state.params.code].imgurl } />
             <Text style={style.textDate}>DATE : {this.date()}</Text>
             </View>
+            <Text style={style.signeAmour}>AMOUR (Celibataire) Résumé</Text>
+            <Text style={style.textHoroscopeResume}>{this.state.horos['hw_resume-amour-celibataire']}</Text>
+            <Text style={style.signeAmour}>AMOUR (Celibataire)</Text>
+            <Text style={style.textHoroscope}>{this.state.horos['hw_amour-celibataire']}</Text>
+            <Divider style={{ backgroundColor: 'blue' }} />
+            <Text style={style.textDate}>NOTE :</Text>
             <Rating
                 type="heart"
                 fractions={1}
-                startingValue={rating}
+                startingValue={ratingAmourC}
                 readonly
                 imageSize={30}
                 onFinishRating={this.ratingCompleted}
                 style={{ paddingVertical: 10, alignItems: 'center'}}
                 />
-            <Text style={style.signeAmour}>AMOUR (Celibataire) Résumé</Text>
-            <Text style={style.textHoroscopeResume}>{this.state.horos['hw_resume-amour-celibataire']}</Text>
-            <Text style={style.signeAmour}>AMOUR (Celibataire)</Text>
-            <Text style={style.textHoroscope}>{this.state.horos['hw_amour-celibataire']}</Text>
+             <Divider style={{ backgroundColor: 'blue' }} />
             <Text style={style.signeAmour}>AMOUR (Couple)</Text>
             <Text style={style.textHoroscope}>{this.state.horos['hw_amour-couple']}</Text>
+            <Divider style={{ backgroundColor: 'blue' }} />
+            <Text style={style.textDate}>NOTE :</Text>
+            <Rating
+                type="heart"
+                fractions={1}
+                startingValue={ratingAmourCouple}
+                readonly
+                imageSize={30}
+                onFinishRating={this.ratingCompleted}
+                style={{ paddingVertical: 10, alignItems: 'center'}}
+                />
+            <Divider style={{ backgroundColor: 'blue' }} />
             <Text style={style.signeSocial}>SOCIAL Résumé</Text>
             <Text style={style.textHoroscopeResume}>{this.state.horos['hw_resume-social']}</Text>
             <Text style={style.signeSocial}>SOCIAL</Text>
             <Text style={style.textHoroscope}>{this.state.horos['hw_social']}</Text>
+            <Divider style={{ backgroundColor: 'blue' }} />
+            <Text style={style.textDate}>NOTE :</Text>
+            <Rating
+                type="heart"
+                fractions={1}
+                startingValue={ratingSocial}
+                readonly
+                imageSize={30}
+                onFinishRating={this.ratingCompleted}
+                style={{ paddingVertical: 10, alignItems: 'center'}}
+                />
+            <Divider style={{ backgroundColor: 'blue' }} />
             <Text style={style.signeLoisir}>LOISIR Résumé</Text>
             <Text style={style.textHoroscope}>{this.state.horos['hw_resume-loisir']}</Text>
             <Text style={style.signeLoisir}>LOISIR</Text>
             <Text style={style.textHoroscope}>{this.state.horos['hw_loisir']}</Text>
+            <Divider style={{ backgroundColor: 'blue' }} />
+            <Text style={style.textDate}>NOTE :</Text>
+            <Rating
+                type="heart"
+                fractions={1}
+                startingValue={ratingLoisir}
+                readonly
+                imageSize={30}
+                onFinishRating={this.ratingCompleted}
+                style={{ paddingVertical: 10, alignItems: 'center'}}
+                />
+            <Divider style={{ backgroundColor: 'blue' }} />
             <Text style={style.signeLoisir}>LOISIR</Text>
             </ScrollView>
         )
