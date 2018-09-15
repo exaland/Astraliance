@@ -45,7 +45,6 @@ class Horoscopetype extends React.Component {
                 <Image style={{backgroundColor: '#160a38',marginTop:20,marginBottom: 40}} source={require ('./Images/logo_blanc.png')} />
                 <TouchableOpacity style={style.button} onPress={() => this.submitDay() }>
                 <Text style={style.buttontitle}> HOROSCOPE DU JOUR </Text>
-
                 </TouchableOpacity>
                 <TouchableOpacity style={style.button} onPress={() => this.submitWeek() }>
                 <Text style={style.buttontitle}> HOROSCOPE DE LA SEMAINE </Text>
