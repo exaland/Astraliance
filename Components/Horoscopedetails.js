@@ -1,12 +1,12 @@
 import React, { Component} from 'react'
-import { View, Text, ScrollView, Image, Alert } from 'react-native'
+import { View, Text, ScrollView, Image, Alert, RefreshControl } from 'react-native'
 import { Rating , Divider} from 'react-native-elements'
 import axios from 'axios'
 import style from './Styles/Style'
 import moment from 'moment'
 const BASE_URL = 'http://www.astraliance.fr/wp-json/horoscope/v1/fr/week-end'
 let days = '';
-const { ratingAmourC, ratingAmourCouple, ratingSocial, ratingLoisir } =''
+const { ratingAmourC, ratingAmourCouple, ratingSocial, ratingLoisir } = 0
 export default class Horoscopedetails extends React.Component {
 
 
@@ -21,7 +21,7 @@ export default class Horoscopedetails extends React.Component {
         super(props)
         this.state = {
             horos: [],
-            horosNew: [],
+            refreshing:false,
             horoscope: this.props.navigation.state.params.type,
             codeHoroscope: this.props.navigation.state.params.code
         }
@@ -32,7 +32,12 @@ export default class Horoscopedetails extends React.Component {
         this.date();
       }
 
+      _onRefresh = () => {
+        this.setState({refreshing: true});
+        //Fonction a ajouter pour le Rafraichissiment de l'écran
+        this.setState({refreshing: false});
 
+        }
 
     fetchHoroscope(codes) {
         axios.get(BASE_URL)
@@ -49,7 +54,7 @@ export default class Horoscopedetails extends React.Component {
             ratingAmourCouple = parseInt(this.state.horos['hw_note-amour-couple'],10);
             ratingSocial = parseInt(this.state.horos['hw_note-social'],10);
             ratingLoisir = parseInt(this.state.horos['hw_note-loisir'],10);
-
+          
 
         }).catch((error) => {
             return Alert.alert ('Problème Horoscope', 'Il y a un problème avec le Serveur',
@@ -81,7 +86,9 @@ export default class Horoscopedetails extends React.Component {
             { name: 'capricorne', code: '10', imgurl: require('./Images/signe_capricorne.png')  }, { name: 'cancer', code: '11', imgurl: require('./Images/signe_cancer.png')  },
           ];
         return (
-            <ScrollView maximumZoomScale={4} minimumZoomScale={0.25} bouncesZoom={true} style={style.scrollViewHoroscope}>
+            <ScrollView refreshControl={<RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh} />} maximumZoomScale={4} minimumZoomScale={0.25} bouncesZoom={true} style={style.scrollViewHoroscope}>
             <View style = { style.viewHoroscope} >
 
             <Image source={signeImage[this.props.navigation.state.params.code].imgurl } />
@@ -92,21 +99,20 @@ export default class Horoscopedetails extends React.Component {
             <Text style={style.signeAmour}>AMOUR (Celibataire)</Text>
             <Text style={style.textHoroscope}>{this.state.horos['hw_amour-celibataire']}</Text>
             <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.textDate}>NOTE :</Text>
+            <Text style={style.textDate}>NOTE Amour (Célibataire) :</Text>
             <Rating
                 type="heart"
                 fractions={1}
                 startingValue={ratingAmourC}
                 readonly
                 imageSize={30}
-                onFinishRating={this.ratingCompleted}
                 style={{ paddingVertical: 10, alignItems: 'center'}}
                 />
              <Divider style={{ backgroundColor: 'blue' }} />
             <Text style={style.signeAmour}>AMOUR (Couple)</Text>
             <Text style={style.textHoroscope}>{this.state.horos['hw_amour-couple']}</Text>
             <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.textDate}>NOTE :</Text>
+            <Text style={style.textDate}>NOTE Amour (Couple) :</Text>
             <Rating
                 type="heart"
                 fractions={1}
@@ -122,7 +128,7 @@ export default class Horoscopedetails extends React.Component {
             <Text style={style.signeSocial}>SOCIAL</Text>
             <Text style={style.textHoroscope}>{this.state.horos['hw_social']}</Text>
             <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.textDate}>NOTE :</Text>
+            <Text style={style.textDate}>NOTE Social :</Text>
             <Rating
                 type="heart"
                 fractions={1}
@@ -138,7 +144,7 @@ export default class Horoscopedetails extends React.Component {
             <Text style={style.signeLoisir}>LOISIR</Text>
             <Text style={style.textHoroscope}>{this.state.horos['hw_loisir']}</Text>
             <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.textDate}>NOTE :</Text>
+            <Text style={style.textDate}>NOTE Loisir :</Text>
             <Rating
                 type="heart"
                 fractions={1}
