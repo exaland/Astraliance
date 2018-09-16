@@ -53,10 +53,10 @@ export default {
     
     },
     textHoroscope: {
-        fontSize: 10
+        fontSize: 14,
     },
     textHoroscopeResume: {
-        fontSize: 10,
+        fontSize: 14,
         fontStyle: 'italic'
     },
     textDate: {

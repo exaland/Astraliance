@@ -4,7 +4,8 @@ import { Rating , Divider} from 'react-native-elements'
 import axios from 'axios'
 import style from './Styles/Style'
 import moment from 'moment'
-const BASE_URL = 'http://www.astraliance.fr/wp-json/horoscope/v1/fr/week-end'
+const BASE_URL = 'http://www.astraliance.fr/wp-json/horoscope/v1/fr/'
+const URL_API = ''
 let days = '';
 const { ratingAmourC, ratingAmourCouple, ratingSocial, ratingLoisir } = 0
 export default class Horoscopedetails extends React.Component {
@@ -25,7 +26,7 @@ export default class Horoscopedetails extends React.Component {
             horoscope: this.props.navigation.state.params.type,
             codeHoroscope: this.props.navigation.state.params.code
         }
-       
+       URL_API = BASE_URL + this.props.navigation.state.params.type
         console.log('HOROSCOPE', this.props.navigation.state.params.type)
         console.log('CODE HOROSCOPE', this.props.navigation.state.params.signe)
         this.fetchHoroscope(this.props.navigation.state.params.signe);
@@ -40,14 +41,13 @@ export default class Horoscopedetails extends React.Component {
         }
 
     fetchHoroscope(codes) {
-        axios.get(BASE_URL)
+        axios.get(URL_API)
         .then((response) => {
           
             var val = "cancer"
             var index = response.data.findIndex(function(item,i) {
                 return item.sign === codes
             })
-            console.log(index)
             this.setState({horos: response.data[index]})
             days = this.state.horos['date'];
             ratingAmourC = parseInt(this.state.horos['hw_note-amour-celibataire'],10);
@@ -155,7 +155,7 @@ export default class Horoscopedetails extends React.Component {
                 style={{ paddingVertical: 10, alignItems: 'center'}}
                 />
             <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.signeLoisir}>LOISIR</Text>
+            <Text style={style.signeLoisir}></Text>
             </ScrollView>
         )
     }

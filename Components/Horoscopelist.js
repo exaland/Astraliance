@@ -23,7 +23,7 @@ export default class Horoscopelist extends React.Component {
 
       getHoroscope(signe,codeHoroscope) {
           console.log('CA MARCHE',signe)
-          this.props.navigation.navigate('Details', {type: 'jour', code: codeHoroscope, signe: signe})
+          this.props.navigation.navigate('Details', {type: this.props.navigation.state.params.type, code: codeHoroscope, signe: signe})
 
       }
 
