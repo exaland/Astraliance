@@ -29,6 +29,7 @@ tabBarOptions: {
 }})
 
 export default class App extends React.Component {
+  
 
   static propTypes = {
     types: PropTypes.string

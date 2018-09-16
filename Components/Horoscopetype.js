@@ -4,10 +4,11 @@ import { createStackNavigator } from 'react-navigation'
 import  Horoscopelist  from './Horoscopelist'
 import Horoscopedetails from './Horoscopedetails'
 import  About  from './About'
+import { Icon } from 'react-native-elements'
 import style from './Styles/Style'
 import SliderEntry from './Carousel/components/SliderEntry';
 import { sliderWidth, itemWidth } from './Carousel/styles/SliderEntry.style';
-import { ENTRIES1, ENTRIES2 } from './Carousel/static/entries';
+import { ENTRIES1 } from './Carousel/static/entries';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import styles, { colors } from './Carousel/styles/index.style';
 
