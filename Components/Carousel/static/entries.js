@@ -1,18 +1,75 @@
 export const ENTRIES1 = [
     {
-        title: 'Découvrez votre Horoscope du Jour',
-        subtitle: 'jour',
-        illustration: require('../../Images/signe_balance.png')
-    },
-    {
-        title: 'Les prévisions de la Semaine',
-        subtitle: 'week',
-        illustration: require('../../Images/horoscope_semaine.png')
-    },
-    {
-        title: 'Votre Horoscope du Week-End',
+        title: 'belier',
         subtitle: 'week-end',
-        illustration: require('../../Images/horoscope_weekend.png')
+        illustration: require('../../Images/signe_belier.png'),
+        codehoros: 0
+    },
+    {
+        title: 'balance',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_balance.png'),
+        codehoros: 1
+    },
+    {
+        title: 'vierge',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_vierge.png'),
+        codehoros: 2
+    },
+    {
+        title: 'verseau',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_verseau.png'),
+        codehoros: 3
+    },
+    {
+        title: 'taureau',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_taureau.png'),
+        codehoros: 4
+    },
+    {
+        title: 'scorpion',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_scorpion.png'),
+        codehoros: 5
+    },
+    {
+        title: 'sagittaire',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_sagittaire.png'),
+        codehoros: 6
+    },
+    {
+        title: 'poissons',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_poissons.png'),
+        codehoros: 7
+    },
+    {
+        title: 'lion',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_lion.png'),
+        codehoros: 8
+    },
+    {
+        title: 'gemeaux',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_gemeaux.png'),
+        codehoros: 9
+    },
+    {
+        title: 'capricorne',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_capricorne.png'),
+        codehoros: 10
+    },
+    {
+        title: 'cancer',
+        subtitle: 'week-end',
+        illustration: require('../../Images/signe_cancer.png'),
+        codehoros: 11
     }
 ];
 

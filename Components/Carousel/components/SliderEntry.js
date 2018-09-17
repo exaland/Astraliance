@@ -39,7 +39,7 @@ export default class SliderEntry extends Component {
     }
 
     render () {
-        const { data: { title, subtitle }, even, navigation} = this.props;
+        const { data: { title, subtitle, codehoros }, even, navigation} = this.props;
 
         const uppercaseTitle = title ? (
             <Text
@@ -55,7 +55,8 @@ export default class SliderEntry extends Component {
               activeOpacity={1}
               style={styles.slideInnerContainer}
               onPress={() => {
-                navigation.navigate('Liste',  {type: subtitle})
+                navigation.navigate('Details', {type: subtitle, code: codehoros, signe: title})
+
             }}
               >
                 <View style={styles.shadow} />
@@ -64,7 +65,7 @@ export default class SliderEntry extends Component {
                     <View style={[styles.radiusMask, even ? styles.radiusMaskEven : {}]} />
                 </View>
                 <View style={[styles.textContainer, even ? styles.textContainerEven : {}]}>
-                    { uppercaseTitle }
+        
                    
                 </View>
             </TouchableOpacity>

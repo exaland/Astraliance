@@ -68,7 +68,7 @@ class Horoscopetype extends React.Component {
         return (
             <View style={{justifyContent: 'center',alignItems:'center'}}>
                 <Image style={{backgroundColor: '#160a38',marginTop:20,marginBottom: 40}} source={require ('./Images/logo_blanc.png')} />
-               
+               <Text style={{fontSize: 24, fontWeight:'bold'}}>Horoscope du Jour</Text>
                 <Carousel
                   ref={c => this._slider1Ref = c}
                   data={ENTRIES1}
