@@ -44,7 +44,7 @@ export default class Horoscopelist extends React.Component {
         items={items}
         style={styles.gridView}
         renderItem={item => (
-          <View style={[styles.itemContainer, { backgroundColor: '#34495e' }]}>
+          <View style={[styles.itemContainer, { }]}>
           <TouchableOpacity onPress={() => this.getHoroscope(item.name,item.code)}>
             <Image style={[styles.center, {alignItems: 'center'}]} source={item.imgurl} resizeMode='contain' />
             </TouchableOpacity>

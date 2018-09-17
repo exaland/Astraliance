@@ -23,41 +23,55 @@ export default {
         color: '#FFFFFF',
         fontSize: 22,
         fontWeight: 'bold'
-        
+
     },
     viewHoroscope: {
-        alignItems:'center'
+        alignItems: 'center',
+        paddingVertical: 20
+
+
     },
     scrollViewHoroscope: {
         paddingVertical: 20
     },
     signeAmour: {
-      fontSize: 25,
-      fontWeight: 'bold',
-      backgroundColor: '#FE2E2E',
-      color: '#FFFFFF'
-     
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+        paddingVertical: 10,
+        borderRadius: 10
+
+    },
+    signeTest: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    texteTitre: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
     },
     signeSocial: {
         fontSize: 25,
         fontWeight: 'bold',
-        backgroundColor: '#FA5858',
-        color: '#FFFFFF'
-    
+        color: '#FFFFFF',
     },
     signeLoisir: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    backgroundColor: '#F5A9A9',
-    color: '#FFFFFF'
-    
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+
     },
     textHoroscope: {
         fontSize: 14,
+        paddingVertical: 20,
+        marginBottom: 10
     },
     textHoroscopeResume: {
         fontSize: 14,
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        paddingVertical: 20,
+        marginBottom: 10
     },
     textDate: {
         fontWeight: 'bold'

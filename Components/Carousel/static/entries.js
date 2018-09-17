@@ -2,7 +2,7 @@ export const ENTRIES1 = [
     {
         title: 'Découvrez votre Horoscope du Jour',
         subtitle: 'jour',
-        illustration: require('../../Images/horoscope_jour.png')
+        illustration: require('../../Images/signe_balance.png')
     },
     {
         title: 'Les prévisions de la Semaine',

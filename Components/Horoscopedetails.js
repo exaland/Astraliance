@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import { View, Text, ScrollView, Image, Alert, RefreshControl } from 'react-native'
-import { Rating , Divider} from 'react-native-elements'
+import { Rating , Divider, Icon} from 'react-native-elements'
 import DropdownAlert from 'react-native-dropdownalert'
 import axios from 'axios'
 import style from './Styles/Style'
@@ -8,6 +8,7 @@ import moment from 'moment'
 const BASE_URL = 'http://www.astraliance.fr/wp-json/horoscope/v1/fr/'
 const URL_API = ''
 let days = '';
+const STARS_ICON = require('../Components/Icons/star.png')
 const { ratingAmourC, ratingAmourCouple, ratingSocial, ratingLoisir } = 0
 export default class Horoscopedetails extends React.Component {
 
@@ -30,19 +31,14 @@ export default class Horoscopedetails extends React.Component {
         URL_API = BASE_URL + this.props.navigation.state.params.type
         console.log('HOROSCOPE', this.props.navigation.state.params.type)
         console.log('CODE HOROSCOPE', this.props.navigation.state.params.signe)
+        this.fetchHoroscope(this.props.navigation.state.params.signe);
+        this.date();
 
       }
       showError = (message) => {
         this.dropdown.alertWithType('error', 'Error', message)
       }
-    
-      componentWillMount() {
-        this.fetchHoroscope(this.props.navigation.state.params.signe);
-        this.date();
-
-      }
       
-
       _onRefresh = () => {
         this.setState({refreshing: true});
         //Fonction a ajouter pour le Rafraichissiment de l'écran
@@ -84,14 +80,16 @@ export default class Horoscopedetails extends React.Component {
        )
     }
 
-    rating(noteType) {
+    rating(noteType,couleurs) {
         return (
         <Rating
-                type="heart"
+                type="custom"
+                ratingImage={STARS_ICON}
                 fractions={1}
                 startingValue={noteType}
                 readonly
-                imageSize={30}
+                imageSize={20}
+                ratingBackgroundColor={couleurs}
                 style={{ paddingVertical: 10, alignItems: 'center'}}
                 />
         )
@@ -101,12 +99,12 @@ export default class Horoscopedetails extends React.Component {
     render() {
 
         const signeImage = [
-            { name: 'belier', code: '0', imgurl: require('./Images/signe_belier.png') }, { name: 'balance', code: '1', imgurl: require('./Images/signe_balance.png') },
-            { name: 'vierge', code: '2',  imgurl: require('./Images/signe_vierge.png') }, { name: 'verseau', code: '3',  imgurl: require('./Images/signe_verseau.png')  },
-            { name: 'taureau', code: '4' , imgurl: require('./Images/signe_taureau.png') }, { name: 'scorpion', code: '5',  imgurl: require('./Images/signe_scorpion.png') },
-            { name: 'sagittaire', code: '6', imgurl: require('./Images/signe_sagittaire.png')  }, { name: 'poissons', code: '7' , imgurl: require('./Images/signe_poissons.png')},
-            { name: 'lion', code: '8', imgurl: require('./Images/signe_lion.png')  }, { name: 'gemeaux', code: '9',  imgurl: require('./Images/signe_gemeaux.png')  },
-            { name: 'capricorne', code: '10', imgurl: require('./Images/signe_capricorne.png')  }, { name: 'cancer', code: '11', imgurl: require('./Images/signe_cancer.png')  },
+            { name: 'belier', code: '0', imgurl: require('./Images/signe_belier.png'),couleurtheme: '#00a2e0' }, { name: 'balance', code: '1', imgurl: require('./Images/signe_balance.png'),couleurtheme: '#f39432' },
+            { name: 'vierge', code: '2',  imgurl: require('./Images/signe_vierge.png'),couleurtheme: '#ed6ea7' }, { name: 'verseau', code: '3',  imgurl: require('./Images/signe_verseau.png'),couleurtheme: '#adb144'  },
+            { name: 'taureau', code: '4' , imgurl: require('./Images/signe_taureau.png'),couleurtheme: '#ea5045' }, { name: 'scorpion', code: '5',  imgurl: require('./Images/signe_scorpion.png'),couleurtheme: '#cd80b4' },
+            { name: 'sagittaire', code: '6', imgurl: require('./Images/signe_sagittaire.png'),couleurtheme: '#9d9d9c'  }, { name: 'poissons', code: '7' , imgurl: require('./Images/signe_poissons.png'),couleurtheme: '#61c2d0'},
+            { name: 'lion', code: '8', imgurl: require('./Images/signe_lion.png'),couleurtheme: '#cb6e33'  }, { name: 'gemeaux', code: '9',  imgurl: require('./Images/signe_gemeaux.png'),couleurtheme: '#a79dcc'  },
+            { name: 'capricorne', code: '10', imgurl: require('./Images/signe_capricorne.png'),couleurtheme: '#F39331'  }, { name: 'cancer', code: '11', imgurl: require('./Images/signe_cancer.png'),couleurtheme: '#a1c748'  },
           ];
         return (
             <ScrollView refreshControl={<RefreshControl
@@ -117,36 +115,34 @@ export default class Horoscopedetails extends React.Component {
             <Image source={signeImage[this.props.navigation.state.params.code].imgurl } />
             <Text style={style.textDate}>DATE : {this.date()}</Text>
             </View>
-            <Text style={style.signeAmour}>AMOUR (Celibataire) Résumé</Text>
-            <Text style={style.textHoroscopeResume}>{this.state.horos['hw_resume-amour-celibataire']}</Text>
-            <Text style={style.signeAmour}>AMOUR (Celibataire)</Text>
+            <View style={[style.signeTest, {backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }]}>
+            <Icon  name='heart' color='#ffffff' type='font-awesome' />
+            <Text style={style.texteTitre}> Amour (Célibataire)  </Text>
+            {this.rating(ratingAmourC,signeImage[this.props.navigation.state.params.code].couleurtheme)}
+            </View>
             <Text style={style.textHoroscope}>{this.state.horos['hw_amour-celibataire']}</Text>
-            <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.textDate}>NOTE Amour (Célibataire) :</Text>
-            {this.rating(ratingAmourC)}
-             <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.signeAmour}>AMOUR (Couple)</Text>
+            <Divider style={{ backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }} />
+            <View style={[style.signeTest, {backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }]}>
+            <Icon  name='heart' color='#ffffff' type='font-awesome' />
+            <Text style={style.texteTitre}> Amour (Couple)  </Text>
+            {this.rating(ratingAmourCouple,signeImage[this.props.navigation.state.params.code].couleurtheme)}
+            </View>
             <Text style={style.textHoroscope}>{this.state.horos['hw_amour-couple']}</Text>
-            <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.textDate}>NOTE Amour (Couple) :</Text>
-            {this.rating(ratingAmourCouple)}
-            <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.signeSocial}>SOCIAL Résumé</Text>
-            <Text style={style.textHoroscopeResume}>{this.state.horos['hw_resume-social']}</Text>
-            <Text style={style.signeSocial}>SOCIAL</Text>
+            <Divider style={{ backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }} />
+            <View style={[style.signeTest, {backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }]}>
+            <Icon  name='users' color='#ffffff' type='font-awesome' />
+            <Text style={style.texteTitre}> Social  </Text>
+            {this.rating(ratingSocial,signeImage[this.props.navigation.state.params.code].couleurtheme)}
+            </View>
             <Text style={style.textHoroscope}>{this.state.horos['hw_social']}</Text>
-            <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.textDate}>NOTE Social :</Text>
-            {this.rating(ratingSocial)}
-            <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.signeLoisir}>LOISIR Résumé</Text>
-            <Text style={style.textHoroscope}>{this.state.horos['hw_resume-loisir']}</Text>
-            <Text style={style.signeLoisir}>LOISIR</Text>
+            <Divider style={{ backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }} />
+            <View style={[style.signeTest, {backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }]}>
+            <Icon  name='soccer-ball-o' color='#ffffff' type='font-awesome' />
+            <Text style={style.texteTitre}> Loisir  </Text>
+            {this.rating(ratingLoisir,signeImage[this.props.navigation.state.params.code].couleurtheme)}
+            </View>
             <Text style={style.textHoroscope}>{this.state.horos['hw_loisir']}</Text>
-            <Divider style={{ backgroundColor: 'blue' }} />
-            <Text style={style.textDate}>NOTE Loisir :</Text>
-            {this.rating(ratingLoisir)}
-            <Divider style={{ backgroundColor: 'blue' }} />
+            <Divider style={{ backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }} />
             <Text style={style.signeLoisir}></Text>
             <DropdownAlert ref={ref => this.dropdown = ref} onClose={data => this.onClose(data)} />
 

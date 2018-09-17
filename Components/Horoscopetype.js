@@ -42,7 +42,6 @@ class Horoscopetype extends React.Component {
         return (
             <SliderEntry
               data={item}
-              even={(index + 1) % 2 === 0}
               parallax={true}
               parallaxProps={parallaxProps}
               navigation={this.props.navigation}
