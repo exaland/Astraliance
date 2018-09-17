@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Image , Button, StyleSheet} from 'react-native'
 import Horoscopelist from './Horoscopelist'
 import { createStackNavigator } from 'react-navigation'
+
 export default class About extends React.Component {
 
     static navigationOptions = {
