@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, FlatList, StatusBar } from 'react-native';
 import Horoscopetype from './Components/Horoscopetype'
 import About from './Components/About'
-import { createBottomTabNavigator } from 'react-navigation'
+import { createBottomTabNavigator, createDrawerNavigator } from 'react-navigation'
 
 
 const Tabs = createBottomTabNavigator({
@@ -27,6 +27,7 @@ tabBarOptions: {
 
   }
 }})
+
 
 export default class App extends React.Component {
   

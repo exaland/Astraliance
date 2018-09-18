@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image , Button, TouchableOpacity} from 'react-native'
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
 import  Horoscopelist  from './Horoscopelist'
 import Horoscopedetails from './Horoscopedetails'
 import  About  from './About'
@@ -89,7 +89,7 @@ class Horoscopetype extends React.Component {
                   autoplayInterval={3000}
                   onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
                 />
-                
+                <Button onPress={() => this.submitWeekEnd()} title='Test' />
             </View>
 
         )

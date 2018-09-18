@@ -1,7 +1,8 @@
 
 export default {
     container: {
-        margin: 20
+        paddingVertical: 20,
+        marginBottom: 10
     },
     header: {
         backgroundColor: '#160a38'

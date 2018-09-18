@@ -1,6 +1,7 @@
 import React, { Component} from 'react'
-import { View, Text, ScrollView, Image, Alert, RefreshControl } from 'react-native'
+import { View, Text, ScrollView, Image, Alert, RefreshControl, Button } from 'react-native'
 import { Rating , Divider, Icon} from 'react-native-elements'
+import { StackActions, NavigationActions } from 'react-navigation'
 import DropdownAlert from 'react-native-dropdownalert'
 import axios from 'axios'
 import style from './Styles/Style'
@@ -8,8 +9,10 @@ import moment from 'moment'
 const BASE_URL = 'http://www.astraliance.fr/wp-json/horoscope/v1/fr/'
 const URL_API = ''
 let days = '';
+let TYPE_API;
 const STARS_ICON = require('../Components/Icons/star.png')
 const { ratingAmourC, ratingAmourCouple, ratingSocial, ratingLoisir } = 0
+
 export default class Horoscopedetails extends React.Component {
 
 
@@ -31,6 +34,8 @@ export default class Horoscopedetails extends React.Component {
         URL_API = BASE_URL + this.props.navigation.state.params.type
         console.log('HOROSCOPE', this.props.navigation.state.params.type)
         console.log('CODE HOROSCOPE', this.props.navigation.state.params.signe)
+        TYPE_API = this.props.navigation.state.params.type;
+        console.log('TYPE API',TYPE_API);
         this.fetchHoroscope(this.props.navigation.state.params.signe);
         this.date();
 
@@ -60,13 +65,14 @@ export default class Horoscopedetails extends React.Component {
             ratingAmourCouple = parseInt(this.state.horos['hw_note-amour-couple'],10);
             ratingSocial = parseInt(this.state.horos['hw_note-social'],10);
             ratingLoisir = parseInt(this.state.horos['hw_note-loisir'],10);
+        
 
         }).catch((error) => {
             return Alert.alert ('Problème Horoscope', 'Il y a un problème avec le Serveur',
             
             [
-                {text: 'Annuler', onPress: () => this.props.navigation.navigate('Type'), style: 'cancel'},
-                {text: 'OK', onPress: () => this.props.navigation.navigate('Type')},
+                {text: 'Annuler', onPress: () => this.goToHome(), style: 'cancel'},
+                {text: 'OK', onPress: () => this.goToHome()},
             ],
             { cancelable: false}
             )
@@ -78,6 +84,52 @@ export default class Horoscopedetails extends React.Component {
        return (
            <Text> { day } </Text>
        )
+    } 
+    
+    goToHome() {
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({routeName: 'Type'})],
+        });
+        this.props.navigation.dispatch(resetAction);
+
+    }
+
+    goToSigne(types) {
+
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({routeName: 'Liste', params: { type: types}})],
+        });
+        this.props.navigation.dispatch(resetAction);
+
+    }
+
+    buttonTypeSigne() {
+        if (TYPE_API === 'week-end') {
+            return (
+                <View>
+                <Button  onPress={() => this.goToSigne('jour')} title='Hororoscope du Jour'></Button>
+                <Divider></Divider>
+                <Button onPress={() => this.goToSigne('week')} title='Hororoscope de la Semaine'></Button>
+                </View>
+
+            ) 
+        } else if (TYPE_API === 'jour') {
+            return (
+                <View style={style.button}>
+                <Button style={style.button} onPress={() => this.goToSigne('week')} title='Horoscope de la Semaine'></Button>
+                <Button onPress={() => this.goToSigne('week-end')} title='Horoscope du Week-End'></Button>
+                </View>
+            ) 
+        } else if (TYPE_API === 'week') {
+            return (
+                <View>
+                <Button onPress={() => this.goToSigne('jour')} title='Hororoscope du Jour'></Button>
+                <Button onPress={() => this.goToSigne('week-end')} title='Hororoscope du Week-End'></Button>
+                </View>
+            ) 
+        }
     }
 
     rating(noteType,couleurs) {
@@ -145,7 +197,9 @@ export default class Horoscopedetails extends React.Component {
             <Divider style={{ backgroundColor: signeImage[this.props.navigation.state.params.code].couleurtheme }} />
             <Text style={style.signeLoisir}></Text>
             <DropdownAlert ref={ref => this.dropdown = ref} onClose={data => this.onClose(data)} />
-
+            <View style={style.container}>
+            {this.buttonTypeSigne()}
+            </View>
             </ScrollView>
         )
     }

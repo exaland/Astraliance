@@ -1,7 +1,15 @@
 import React, { Component} from 'react'
-import { View, Text, StyleSheet , Image, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet , Image, TouchableOpacity, Button} from 'react-native'
+import { createDrawerNavigator , StackActions, NavigationActions} from 'react-navigation'
 import GridView from 'react-native-super-grid';
+import { Icon } from 'react-native-elements'
 import style from './Styles/Style'
+import About from './About'
+const resetAction = StackActions.reset({
+  index: 0,
+  actions: [NavigationActions.navigate({routeName: 'Type'})],
+});
+
 export default class Horoscopelist extends React.Component {
 
 
@@ -9,6 +17,10 @@ export default class Horoscopelist extends React.Component {
         
         return {
             title: `Choisissez votre Signe / ${navigation.state.params.type}`,
+            headerRight: <Button
+            title="Accueil"
+            onPress={() => navigation.dispatch(resetAction)}
+          />,
             headerStyle: style.header,
             headerTitleStyle: style.headerTitle,
             headerTintColor: '#fff'
@@ -25,6 +37,10 @@ export default class Horoscopelist extends React.Component {
           console.log('CA MARCHE',signe)
           this.props.navigation.navigate('Details', {type: this.props.navigation.state.params.type, code: codeHoroscope, signe: signe})
 
+      }
+
+      test() {
+        console.log('TEST')
       }
 
     render() {
