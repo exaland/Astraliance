@@ -89,7 +89,6 @@ class Horoscopetype extends React.Component {
                   autoplayInterval={3000}
                   onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
                 />
-                <Button onPress={() => this.submitWeekEnd()} title='Test' />
             </View>
 
         )
