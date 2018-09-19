@@ -3,8 +3,7 @@ import { View, Text, Image , Button, TouchableOpacity} from 'react-native'
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
 import  Horoscopelist  from './Horoscopelist'
 import Horoscopedetails from './Horoscopedetails'
-import  About  from './About'
-import { Icon } from 'react-native-elements'
+import moment from 'moment' 
 import style from './Styles/Style'
 import SliderEntry from './Carousel/components/SliderEntry';
 import { sliderWidth, itemWidth } from './Carousel/styles/SliderEntry.style';
@@ -13,8 +12,9 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import styles, { colors } from './Carousel/styles/index.style';
 
 const SLIDER_1_FIRST_ITEM = 1;
-
-
+const idLocale = '';
+var dateDuJour = "";
+var dateFinale = "";
 class Horoscopetype extends React.Component {
 
     
@@ -33,6 +33,11 @@ class Horoscopetype extends React.Component {
         this.state = {
             type: 'Week-End'
         }
+        idLocale = require('moment/locale/fr');
+        moment.updateLocale('fr',idLocale);
+        dateDuJour = new Date();
+        dateFinale = moment(dateDuJour).format('dddd Do MMMM YYYY');
+
     }
     _renderItem ({item, index}) {
         return <SliderEntry data={item} even={(index + 1) % 2 === 0}  />;
@@ -65,10 +70,12 @@ class Horoscopetype extends React.Component {
 
 
     render() {
+       
         return (
             <View style={{justifyContent: 'center',alignItems:'center'}}>
                 <Image style={{backgroundColor: '#160a38',marginTop:20,marginBottom: 40}} source={require ('./Images/logo_blanc.png')} />
                <Text style={{fontSize: 24, fontWeight:'bold'}}>Horoscope du Jour</Text>
+               <Text style={{fontSize: 18, fontWeight:'bold'}}>{dateFinale.toUpperCase()}</Text>
                 <Carousel
                   ref={c => this._slider1Ref = c}
                   data={ENTRIES1}

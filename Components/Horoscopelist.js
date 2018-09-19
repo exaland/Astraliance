@@ -38,11 +38,7 @@ export default class Horoscopelist extends React.Component {
           this.props.navigation.navigate('Details', {type: this.props.navigation.state.params.type, code: codeHoroscope, signe: signe})
 
       }
-
-      test() {
-        console.log('TEST')
-      }
-
+      
     render() {
         const items = [
             { name: 'belier', code: '0', imgurl: require('./Images/signe_belier.png') }, { name: 'balance', code: '1', imgurl: require('./Images/signe_balance.png') },
