@@ -20,7 +20,8 @@ export default class Horoscopedetails extends React.Component {
         title: 'Votre Horoscope',
         headerStyle: style.header,
         headerTitleStyle: style.headerTitle,
-        headerTintColor: '#fff'
+        headerTintColor: '#fff',
+        headerBackTitle: 'Retour'
     }
 
     constructor(props) {
@@ -51,7 +52,11 @@ export default class Horoscopedetails extends React.Component {
        
 
         }
-
+/**
+ *  fetchHoroscope(codes)
+ *  Parse the Horoscope from client server (wp)
+ *  params: codes horoscope
+ */
     fetchHoroscope(codes) {
         axios.get(URL_API)
         .then((response) => {
@@ -80,7 +85,9 @@ export default class Horoscopedetails extends React.Component {
     }  
 
     date() {
-        day = moment(days * 1000).format('DD/MM')
+        idLocale = require('moment/locale/fr');
+        moment.updateLocale('fr',idLocale);
+        day = moment(days * 1000).format('dddd Do MMMM YYYY')
        return (
            <Text> { day } </Text>
        )
@@ -109,24 +116,24 @@ export default class Horoscopedetails extends React.Component {
         if (TYPE_API === 'week-end') {
             return (
                 <View>
-                <Button  onPress={() => this.goToSigne('jour')} title='Hororoscope du Jour'></Button>
+                <Button  onPress={() => this.goToSigne('jour')} color='#160a38' title='Hororoscope du Jour'></Button>
                 <Divider></Divider>
-                <Button onPress={() => this.goToSigne('week')} title='Hororoscope de la Semaine'></Button>
+                <Button onPress={() => this.goToSigne('week')} color='#160a38' title='Hororoscope de la Semaine'></Button>
                 </View>
 
             ) 
         } else if (TYPE_API === 'jour') {
             return (
                 <View style={style.button}>
-                <Button style={style.button} onPress={() => this.goToSigne('week')} title='Horoscope de la Semaine'></Button>
-                <Button onPress={() => this.goToSigne('week-end')} title='Horoscope du Week-End'></Button>
+                <Button style={style.button} onPress={() => this.goToSigne('week')} color='#160a38' title='Horoscope de la Semaine'></Button>
+                <Button onPress={() => this.goToSigne('week-end')} color='#160a38' title='Horoscope du Week-End'></Button>
                 </View>
             ) 
         } else if (TYPE_API === 'week') {
             return (
                 <View>
-                <Button onPress={() => this.goToSigne('jour')} title='Hororoscope du Jour'></Button>
-                <Button onPress={() => this.goToSigne('week-end')} title='Hororoscope du Week-End'></Button>
+                <Button onPress={() => this.goToSigne('jour')} color='#160a38' title='Hororoscope du Jour'></Button>
+                <Button onPress={() => this.goToSigne('week-end')} color='#160a38' title='Hororoscope du Week-End'></Button>
                 </View>
             ) 
         }

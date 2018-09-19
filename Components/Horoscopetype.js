@@ -15,6 +15,8 @@ const SLIDER_1_FIRST_ITEM = 1;
 const idLocale = '';
 var dateDuJour = "";
 var dateFinale = "";
+
+
 class Horoscopetype extends React.Component {
 
     
@@ -23,6 +25,7 @@ class Horoscopetype extends React.Component {
         headerStyle: style.header,
         headerTitleStyle: style.headerTitle,
         headerTintColor: '#fff',
+        headerBackTitle: 'Retour',
         tabBarIcon: () => {
            return <Image source={require ('./Icons/home.png')} />
         }
@@ -97,7 +100,7 @@ class Horoscopetype extends React.Component {
                   onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
                 />
             </View>
-
+        
         )
     }
 }
